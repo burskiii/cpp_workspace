@@ -54,7 +54,7 @@ private:
 
 	Account( void );
 
-};
+};	
 
 
 
