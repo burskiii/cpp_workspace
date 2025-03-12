@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   contacts.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygao <ygao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:05:51 by ygao              #+#    #+#             */
-/*   Updated: 2025/02/22 17:07:48 by ygao             ###   ########.fr       */
+/*   Updated: 2025/03/12 13:58:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ class Contact {
 	
 	public:
 		void set_contact();
-		void display_contact();
+		void display_contact(int index);
 		void display_all(int index);
+		std::string formatString(const std::string &str);
 
 	private:
 		std::string first_name;

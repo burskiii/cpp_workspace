@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ygao <ygao@student.42.fr>                  +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 11:29:39 by ygao              #+#    #+#              #
-#    Updated: 2025/02/27 17:42:05 by ygao             ###   ########.fr        #
+#    Updated: 2025/03/12 11:02:50 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 RM = rm -rf
 
-SRC = Account.cpp Account.hpp test.cpp
+SRC = Account.cpp tests.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -28,7 +28,7 @@ OBJ = $(SRC:.cpp=.o)
 $(NAME): $(OBJ)
 	$(CPP) $(CFLAGS) $(OBJ) -o $(NAME)
 
-all: $(NAME)
+all: $(NAME)s
 
 fclean: clean
 		$(RM) $(NAME)

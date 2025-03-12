@@ -3,17 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygao <ygao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:23:37 by ygao              #+#    #+#             */
-/*   Updated: 2025/02/22 16:59:10 by ygao             ###   ########.fr       */
+/*   Updated: 2025/03/12 14:12:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <string>
 #include "phonebook.hpp"
 
-Phonebook::Phonebook() : contact_count(0) {} //is this a global variable? what is this line about?
+Phonebook::Phonebook() : contact_count(0)
+{
+	std::cout << "Your phonebook is ready" << std::endl;
+	std::cout << "Command ADD: add new contact to phonebook" << std::endl;
+	std::cout << "Command SEARCH: search for exicted contact from phonebook" << std::endl;
+	std::cout << "Command EXIT: exit and clean phonebook" << std::endl;
+	std::cout << "-------------------Let us start-------------------" << std::endl;
+}
 
 void Phonebook::add()
 {
@@ -31,21 +39,15 @@ void Phonebook::search()
 		std::cout << "Phonebook is empty!" << std::endl;
 		return;
 	}
-
-	int index;
-
-	index = 0;
-	while (index < contact_count)
-	{
-		contact[index].display_contact();
-	}
+	std::cout << " | " << std::setw(10) << std::right << "Index" << " | " 
+						<< std::setw(10) << std::right << "First Name" << " | "
+				 		<< std::setw(10) << std::right << "Last Name" << " | "
+						<< std::setw(10) << std::right << "Nickname" << " | "
+						<< std::endl;
+	for (int i = 0; i < contact_count; i++)
+		contact[i].display_contact(i);
 }
 
-void Phonebook::exit()
-{
-	std::cout << "Exiting phonebook" << std::endl;
-	exit(); //does this exist in cpp? do i have to destry the phonebook here?
-}
 void Phonebook::run()
 {
 	while (1)
@@ -68,6 +70,19 @@ void Phonebook::run()
 		else if (this->command == "exit" || this->command == "EXIT")
 		{
 			Phonebook::exit();
+			break;
 		}
 	}
 }
+
+void Phonebook::exit()
+{
+	std::cout << "Exiting phonebook" << std::endl;
+}
+
+Phonebook::~Phonebook(void)
+{
+	std::cout << "Your phonebook date has been cleaned" << std::endl;
+}
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   contacts.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygao <ygao@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:03:19 by ygao              #+#    #+#             */
-/*   Updated: 2025/02/22 17:05:43 by ygao             ###   ########.fr       */
+/*   Updated: 2025/03/12 13:59:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,23 @@ void Contact::set_contact( void )
 	std::cout << "Contact added" << std::endl;
 }
 
-void Contact::display_contact( void )
+std::string Contact::formatString(const std::string &str)
 {
-	std::cout << "First name: " << this->first_name << std::endl;
-	std::cout << "Last name: " << this->last_name << std::endl;
-	std::cout << "Nick name: " << this->nick_name << std::endl;
-	std::cout << "Phone number: " << this->phone_number << std::endl;
-	std::cout << "Secret: " << this->secret << std::endl;
-	
+	if (str.length() > 10)
+		return str.substr(0, 9) + ".";
+	else
+		return str;
+}
+
+void Contact::display_contact( int index )
+{
+	if (this->first_name == "")
+	{
+		return ;
+	}
+	std::cout << " | " << std::setw(10) << std::right  << index << " | "  
+			<<std::setw(10) << std::right << formatString(this->last_name) << " | " 
+			<<std::setw(10) << std::right << formatString(this->nick_name) << " | " 
+			<<std::setw(10) << std::right << formatString(this->phone_number) << " | " 
+			<< std::endl;
 }
