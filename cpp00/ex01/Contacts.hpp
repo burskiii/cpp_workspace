@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   contacts.hpp                                       :+:      :+:    :+:   */
+/*   Contacts.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ygao <ygao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:05:51 by ygao              #+#    #+#             */
-/*   Updated: 2025/03/12 13:58:36 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/25 12:28:26 by ygao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define CONTACTS_HPP
 
 #include <iostream>
-#include <iomanip> //what is this?
+#include <iomanip>
 
 class Contact {
 	
