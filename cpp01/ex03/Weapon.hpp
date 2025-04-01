@@ -9,11 +9,15 @@ class Weapon
 {
     private:
         std::string type;
-        Weapon();
-        ~Weapon();
 
     public:
-        void getType();
+		Weapon();
+		Weapon(std::string type);
+		~Weapon();
+        void getType(std::string type);
         void setType();
 
-}
+};
+
+#endif // WEAPON_HPP
+

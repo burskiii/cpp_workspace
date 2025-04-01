@@ -5,13 +5,16 @@
 #include <sstream>
 #include <string>
 
-#include "Weapon.cpp"
+#include "Weapon.hpp"
 
 class HumanB
 {
     private:
         std::string name;
-        std::string weapon;
+        std::string Weapon;
+		
     public:
         void attack();
-}
+};
+
+#endif // HUMANB_HPP
