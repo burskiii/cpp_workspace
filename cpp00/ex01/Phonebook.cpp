@@ -6,7 +6,7 @@
 /*   By: ygao <ygao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 10:23:37 by ygao              #+#    #+#             */
-/*   Updated: 2025/03/25 12:28:05 by ygao             ###   ########.fr       */
+/*   Updated: 2025/04/01 11:00:07 by ygao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ void Phonebook::add()
 
 	index =  contact_count % 8;
 	contact[index].set_contact();
-	contact_count++;
+	if (contact_count < 8)
+		contact_count++;
+	else
+		contact_count = 8;
+		
 }
 
 void Phonebook::search()
