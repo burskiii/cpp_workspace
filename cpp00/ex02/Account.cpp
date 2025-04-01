@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Account.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ygao <ygao@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 10:44:53 by ygao              #+#    #+#             */
-/*   Updated: 2025/03/12 12:55:09 by marvin           ###   ########.fr       */
+/*   Updated: 2025/04/01 11:01:49 by ygao             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ Account::Account(void)
 Account::~Account(void)
 {
 	_displayTimestamp();
-	std::cout << " index:" << this->_accountIndex << ";amount:" << this->_amount << ";closed" << std::endl;
+	std::cout << "index:" << this->_accountIndex << ";amount:" << this->_amount << ";closed" << std::endl;
 }
 
 Account::Account( int initial_deposit)
@@ -81,9 +81,8 @@ void Account::_displayTimestamp()
 {
 	struct timeval tv;
 	gettimeofday(&tv, NULL);
-	std::cout << "[" << tv.tv_sec << "_" << tv.tv_usec << "]";
+	std::cout << "[" << tv.tv_sec << "_" << tv.tv_usec << "] ";
 }
-
 
 void	Account::makeDeposit(int deposit)
 {
