@@ -1,15 +1,18 @@
 #include "HumanA.hpp"
-#include "Weapon.hpp"
 
-HumanA::HumanA(std::string name)
+// Constructor must use an initialization list for references!
+HumanA::HumanA(std::string name, Weapon &weapon) : name(name), weapon(weapon)
 {
-	this->name = name;
-	Weapon *Weapon = this->Weapon;
+    std::cout << this->name << " is here" << std::endl;
 }
 
-\
-
-HumanA::attack()
+// Destructor
+HumanA::~HumanA()
 {
-	std::cout << this->name << " attacks with their " << this->Weapon.getType() << std::endl;
+    std::cout << this->name << " is dead" << std::endl;
+}
+
+void HumanA::attack()
+{
+    std::cout << this->name << " attacks with their " << weapon.getType() << std::endl;
 }

@@ -1,28 +1,23 @@
 #include "Weapon.hpp"
-#include "Human.hpp"
 
-Weapon::Weapon(std::string type)
+// Constructor: initializes 'type'
+Weapon::Weapon(std::string type) : type(type) 
 {
 }
 
-Weapon::~Weapon()
+// Destructor
+Weapon::~Weapon() 
 {
 }
 
-Weapon::Weapon(std::string type)
+// Getter: returns a reference to 'type'
+const std::string& Weapon::getType() const 
 {
-	Weapon &name;
-	name = type;
-}
-void Weapon::getType(std::string type) const
-{
-	this->type = type;
+    return this->type;
 }
 
-void Weapon::setType()
+// Setter: updates 'type' using newType
+void Weapon::setType(const std::string& newType) 
 {
-	Weapon &type;
-
-	type = this->type
-	std::coout << "Weapon type: " << &type << std::endl;
+    this->type = newType;
 }

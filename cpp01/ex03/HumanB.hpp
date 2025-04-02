@@ -1,20 +1,18 @@
 #ifndef HUMANB_HPP
 #define HUMANB_HPP
 
-#include <iostream>
-#include <sstream>
-#include <string>
-
-#include "Weapon.hpp"
+#include "Weapon.hpp" 
 
 class HumanB
 {
     private:
         std::string name;
-        std::string Weapon;
-		
+        Weapon *weapon; // Pointer because HumanB might not always have a weapon
+
     public:
+        HumanB(std::string name);
+        void setWeapon(Weapon &weapon);
         void attack();
 };
 
-#endif // HUMANB_HPP
+#endif

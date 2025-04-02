@@ -1,10 +1,10 @@
-# C++ in 42 Berlin
+# C++ Projects
 
 ## Introduction
-C++ is a powerful and versatile programming language that builds upon the foundation of C while introducing object-oriented programming (OOP), stronger type safety, and various modern features. At **42 Berlin**, the C++ modules provide a structured way to learn the language, from basic syntax to advanced concepts like templates, polymorphism, and memory management.
+C++ is a powerful and versatile programming language that builds upon the foundation of C while introducing object-oriented programming (OOP), stronger type safety, and various modern features. The  following C++ modules provide a structured way to learn the language, from basic syntax to advanced concepts like templates, polymorphism, and memory management.
 
 ## Structure of C++ Modules
-The C++ curriculum at **42 Berlin** is divided into multiple modules, each progressively increasing in complexity. Here’s a general overview of what each module covers:
+This C++ learning path is divided into multiple modules, each progressively increasing in complexity. Here’s a general overview of what each module covers:
 
 ### **Module 00: Basics of C++**
 - Setting up a C++ environment
@@ -69,4 +69,4 @@ The C++ curriculum at **42 Berlin** is divided into multiple modules, each progr
 - **Ask for peer reviews:** Code reviews help improve understanding and catch hidden issues.
 
 ## Conclusion
-C++ at 42 Berlin is designed to help you develop strong problem-solving skills while learning an industry-relevant language. By progressing through these modules, you will gain a deep understanding of both the fundamentals and the advanced capabilities of C++. 🚀
+This C++ learning path is designed to help you develop strong problem-solving skills while learning an industry-relevant language. By progressing through these modules, you will gain a deep understanding of both the fundamentals and the advanced capabilities of C++. 🚀

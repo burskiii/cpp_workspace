@@ -11,11 +11,12 @@ class HumanA
 {
     private:
         std::string name;
-        std::string Weapon;
+        Weapon &weapon;  // Reference to Weapon, must always have one
+    
     public:
-	HumanA();
-	~HumanA();
-	void attack();
+        HumanA(std::string name, Weapon &weapon);
+        ~HumanA();
+        void attack();
 };
 
-#endif // HUMANA_HPP
+#endif

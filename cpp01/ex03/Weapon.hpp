@@ -4,20 +4,21 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <iomanip>
+#include <cstdlib>
+#include <ctime>
+
 
 class Weapon
 {
     private:
         std::string type;
-
+    
     public:
-		Weapon();
-		Weapon(std::string type);
-		~Weapon();
-        void getType(std::string type);
-        void setType();
-
+        Weapon(std::string type);   // Constructor
+        ~Weapon();                  // Destructor
+        const std::string& getType() const; // Getter should return a reference
+        void setType(const std::string& newType); // Setter takes a const reference
 };
 
-#endif // WEAPON_HPP
-
+#endif
