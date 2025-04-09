@@ -1,11 +1,11 @@
 
-NAME = violence
+NAME = replace
 
 CPP = c++
 
 CFLAGS = -Werror -Wall -Wextra -std=c++98
 
-SRCS = main.cpp
+SRCS = main.cpp Replace.cpp
 
 RM = rm -rf
 
