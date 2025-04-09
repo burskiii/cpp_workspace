@@ -3,6 +3,8 @@
 #include <string>
 #include <sstream>
 
+#include "Replace.hpp"
+
 int main(int argc, char **argv)
 {
 	std::string source;

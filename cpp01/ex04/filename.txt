@@ -1,0 +1,14 @@
+hello this is a file 
+for replacing s1 and s2.
+
+we want to write a program with cpp98 to realize a function 
+which the program will copy the content from file and replace s1 with s2. 
+
+
+let's say:
+
+This is an apple.
+That is an banana.
+Those are oranges.
+
+we want to replace the fruits with other things and test the result.
