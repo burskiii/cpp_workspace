@@ -5,7 +5,7 @@ CPP = c++
 
 CFLAGS = -Werror -Wall -Wextra -std=c++98
 
-SRCS = main.cpp
+SRCS = main.cpp Harl.cpp
 
 RM = rm -rf
 
