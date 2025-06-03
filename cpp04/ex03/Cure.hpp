@@ -3,15 +3,21 @@
 
 #include <iostream>
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
-class Cure : public AMaterialSource{
+class ICharacter;
+
+class Cure : public AMateria{
     private:
 
     public:
         Cure();
-        ~Cure();
-        std::string getType(std::string name);
-        std::string use(ICharacter& );
+        Cure(const Cure& other);
+        Cure &operator=(const Cure& other);
+        virtual ~Cure();
+        virtual AMateria* clone() const override;
+        void use(ICharacter& target) override;
+        void getName() const;
 };
 
 #endif

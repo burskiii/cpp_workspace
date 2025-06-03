@@ -1,19 +1,20 @@
 #ifndef AMATERIA_HPP
 #define AMATERIA_HPP
 
-#include <iostream>
+#include <string>
 
-class AMateriaSource {
+class ICharacter;
+
+class AMateria {
 
     protected:
-       
+       std::string type;
     public:
         AMateria(std::string const & type);
-
+        virtual ~AMateria();
         std::string const & getType() const; //returns the material type
         virtual AMateria* clone() const = 0;
-        virtual void use(int i, ICharacter& target);
-        unequip();//must not delete material.
+        virtual void use(ICharacter& target);
 
 };
 
