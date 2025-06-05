@@ -1,4 +1,11 @@
-
+#include <iostream>
+#include "MateriaSource.hpp"
+#include "Ice.hpp"
+#include "Cure.hpp"
+#include "Character.hpp"
+#include "ICharacter.hpp"
+#include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 
 int main()
 {

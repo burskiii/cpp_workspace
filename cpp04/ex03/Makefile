@@ -2,7 +2,7 @@ NAME = recap
 
 CXXFLAGS= -Wextra -Wall -Werror -std=c++98
 
-SRCS = main.cpp AMateria.cpp ICharacter.cpp Character.cpp IMateriaSource.cpp MateriaSource.cpp Ice.cpp Cure.cpp 
+SRCS = main.cpp AMateria.cpp Character.cpp MateriaSource.cpp Ice.cpp Cure.cpp 
 OBJS = $(SRCS:.cpp=.o)
 
 RM = rm -rf

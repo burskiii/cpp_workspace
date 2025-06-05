@@ -3,6 +3,8 @@
 
 Ice::Ice() : AMateria("ice") {}
 
+Ice::~Ice() {}
+
 Ice::Ice(const Ice& other) : AMateria(other) {
     type = other.type;
 }
@@ -13,8 +15,6 @@ Ice &Ice::operator=(const Ice& other) {
     }
     return *this;
 }
-
-Ice::~Ice() {}
 
 AMateria* Ice::clone() const {
     return new Ice(*this);
