@@ -3,14 +3,14 @@
 
 MateriaSource::MateriaSource() {
     for (int i = 0; i < 4; i++) {
-        materia[i] = nullptr;
+        materia[i] = NULL;
     }
 }
 
 MateriaSource::~MateriaSource() {
     for (int i = 0; i < 4; i++) {
         delete materia[i];
-        materia[i] = nullptr;
+        materia[i] = NULL;
     }
 }
 
@@ -20,7 +20,7 @@ MateriaSource::MateriaSource(const MateriaSource& other)
         if (other.materia[i])
             materia[i] = other.materia[i]->clone();
         else
-            materia[i] = nullptr;
+            materia[i] = NULL;
     }
 }
 
@@ -31,7 +31,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& other) {
             if (other.materia[i])
                 materia[i] = other.materia[i]->clone();
             else
-                materia[i] = nullptr;
+                materia[i] = NULL;
             }
         }
     return *this;
@@ -54,5 +54,5 @@ AMateria* MateriaSource::createMateria(std::string const & type) {
         }
     }
     std::cout << "MateriaSource: No materia of type " << type << " found." << std::endl;
-    return nullptr;
+    return NULL;
 }

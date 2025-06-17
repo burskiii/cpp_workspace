@@ -3,29 +3,31 @@
 
 Character::Character(const std::string& name) : name(name) {
     for (int i = 0; i < 4; ++i) {
-        materia[i] = nullptr;
+        materia[i] = NULL;
     }
 }
 
-Character::Character(const Character& other) : name(other.name) {
+Character::Character(const Character& other)  {
+    this->name = other.name;
     for (int i = 0; i < 4; ++i) {
         if (other.materia[i])
-            materia[i] = other.materia[i]->clone();
+            this->materia[i] = other.materia[i]->clone(); //deep copy
         else
-            materia[i] = nullptr;
+            this->materia[i] = NULL;
     }
 }
 
 Character& Character::operator=(const Character& other) {
     if (this != &other) {
-        name = other.name;
-        for (int i = 0; i < 4; ++i) {
-            delete materia[i];
-            materia[i] = nullptr;
-        }
-        for (int i = 0; i < 4; ++i) {
-            if (other.materia[i])
-                materia[i] = other.materia[i]->clone();
+        this->name = other.name;
+		for (int i = 0; i < 4; i++) {
+			if (this->materia[i])
+				delete this->materia[i];
+		
+			if (other.materia[i])
+				this->materia[i] = other.materia[i]->clone();
+			else
+				this->materia[i] = NULL;
         }
     }
     return *this;
@@ -54,7 +56,7 @@ void Character::equip(AMateria* m) {
 void Character::unequip(int idx) {
     if (idx < 0 || idx >= 4) 
         return;
-    materia[idx] = nullptr;
+    materia[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter& target) {
