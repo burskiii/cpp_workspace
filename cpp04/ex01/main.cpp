@@ -6,7 +6,6 @@
 
 int main()
 {    
-    
     const Animal *AAnimals[10]; 
     int dog_count = 0;
     int cat_count = 0;
@@ -41,9 +40,12 @@ int main()
         std::cout << "Deleting AAnimal[" << i + 1 << "]: "<< AAnimals[i]->getType() << std::endl;
         delete AAnimals[i];
         std::cout << std::endl;
-
     }
     
-
+    //test 2:
+    // Dog basic;
+    // Dog tmp = basic;
+    // std::cout << "tmp type: " << tmp.getType() << std::endl;
+    // tmp.makeSound();
     return 0;
 }
