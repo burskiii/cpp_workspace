@@ -2,7 +2,7 @@ NAME = Brain
 
 CXXFLAGS= -Wextra -Wall -Werror -std=c++98
 
-SRCS = main.cpp AAnimal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp
+SRCS = main.cpp AAnimal.cpp Dog.cpp Cat.cpp Brain.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 RM = rm -rf

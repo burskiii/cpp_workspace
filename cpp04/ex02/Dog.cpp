@@ -1,31 +1,41 @@
 #include "Dog.hpp"
 
-Dog::Dog() {
-    std::cout << "Dog deployed!" << std::endl;
-    this->brain = new Brain();
-    this->type = "Dog";
+Dog::Dog() : AAnimal("dog"){
+    brain = new Brain();
+    std::cout << "Dog default constructor called!" << std::endl;
 }
 
-Dog::Dog(const Dog& other) {
-    std::cout << "Dog copy constructor called!" << std::endl;
-    brain = new Brain(*other.brain);
-    this->type = other.type;
+Dog::Dog(std::string type): AAnimal(type)
+{
+    brain = new Brain();
+	std::cout << "Dog constructor is called, " << type << " is born!" << std::endl;
 }
 
-Dog& Dog::operator=(const Dog& other) {
-    std::cout << "Dog copy operator called" << std::endl;
+Dog::Dog(const Dog& other): AAnimal(other)
+{
     if (this != &other)
     {
-        delete brain;
-        brain = new Brain(*other.brain);
-        this->type = other.type;
+        type = other.type;
+        brain = new Brain(*other.brain); // Deep copy of the brain
     }
+    std::cout << "Class Dog: " << other.type << " is copied!" << std::endl;
+}
+
+Dog& Dog::operator=(const Dog& other)
+{
+    if (this != &other)
+    {
+        type = other.type;
+        delete brain; // Free existing memory
+        brain = new Brain(*other.brain); // Deep copy of the brain
+    }
+    std::cout << "Class Dog: " << type << " is assigned!" << std::endl;
     return *this;
 }
 
 Dog::~Dog() {
-    std::cout << "Dog left chat!" << std::endl;
-    delete brain;
+    delete brain; // Free the allocated Brain memory
+	std::cout << "Dog destructor called" << std::endl;
 }
 
 void Dog::makeSound() const {

@@ -1,6 +1,6 @@
 My AAnimal class is abstract thanks to a pure virtual function makeSound().
 I used AAnimal* pointers to create Dog and Cat objects, achieving polymorphism.
-Each animal holds a dynamically allocated Brain which is properly deep-copied and deleted.
+Each AAnimal holds a dynamically allocated Brain which is properly deep-copied and deleted.
 The destructors are virtual, so everything is released in the correct order.
 
 

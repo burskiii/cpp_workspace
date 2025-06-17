@@ -4,18 +4,21 @@
 #include "AAnimal.hpp"
 #include "Brain.hpp"
 
-class Dog : public AAnimal {
+#include <iostream>
+#include <string>
 
-    private:
-        Brain* brain;
+class Dog : virtual public AAnimal {
 
-    public:
-       Dog();
-       Dog(const Dog& other); //copy constructor
-       Dog& operator=(const Dog& other);
-       ~Dog();
-
-       void makeSound() const;
+	private:
+		Brain* brain;
+    
+	public:
+		Dog();
+		Dog(std::string type);
+		Dog(const Dog& other);
+		Dog& operator=(const Dog& other);
+		~Dog();
+		void makeSound() const;
 } ;
 
 #endif

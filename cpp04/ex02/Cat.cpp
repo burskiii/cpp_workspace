@@ -1,30 +1,40 @@
 #include "Cat.hpp"
 
-Cat::Cat() {
-    std::cout << "Cat deployed!" << std::endl;
-    this->brain = new Brain();
-    this->type = "Cat";
+Cat::Cat() : AAnimal("cat") {
+	brain = new Brain();
+    std::cout << "Cat default constructor called" << std::endl;
 }
 
-Cat::Cat(const Cat& other) {
-    std::cout << "Cat copy constructor called!" << std::endl;
-    brain = new Brain(*other.brain);
-    this->type = other.type;
+Cat::Cat(std::string type) : AAnimal(type) {
+	brain = new Brain();
+    std::cout << "Cat constructor is called, " << type << " is born!" << std::endl;
 }
 
-Cat& Cat::operator=(const Cat& other) {
-    std::cout << "Operator constructor called! " << std::endl;
-    if (this != &other)
-    {
-        delete brain;
-        brain = new Brain(*other.brain);
-        this->type = other.type; 
-    }
-    return *this;
+Cat::Cat(const Cat& other): AAnimal(other)
+{
+	if(this != &other)
+	{
+		type = other.type;
+		brain = new Brain(*other.brain);
+	}
+	std::cout << "Class Cat: " << other.type << " is copied!" << std::endl;
 }
+
+Cat& Cat::operator=(const Cat& other)
+{
+	if(this != &other)
+	{
+		type = other.type;
+		delete brain;
+		brain = new Brain(*other.brain); // Deep copy of the brain
+	}
+	std::cout << "Class Cat:  " << type << " is assigned!" << std::endl;
+	return *this;
+}
+
 Cat::~Cat() {
-    std::cout << "Cat left chat!" << std::endl;
-    delete brain;
+	delete brain; // Free the allocated Brain memory
+	std::cout << "Cat destructor called" << std::endl;
 }
 
 void Cat::makeSound() const {
