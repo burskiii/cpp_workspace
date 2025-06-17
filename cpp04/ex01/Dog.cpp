@@ -7,20 +7,28 @@ Dog::Dog() : Animal("dog"){
 
 Dog::Dog(std::string type): Animal(type)
 {
+    brain = new Brain();
 	std::cout << "Dog constructor is called, " << type << " is born!" << std::endl;
 }
 
 Dog::Dog(const Dog& other): Animal(other)
 {
     if (this != &other)
+    {
         type = other.type;
+        brain = new Brain(*other.brain); // Deep copy of the brain
+    }
     std::cout << "Class Dog: " << other.type << " is copied!" << std::endl;
 }
 
 Dog& Dog::operator=(const Dog& other)
 {
     if (this != &other)
+    {
         type = other.type;
+        delete brain; // Free existing memory
+        brain = new Brain(*other.brain); // Deep copy of the brain
+    }
     std::cout << "Class Dog: " << type << " is assigned!" << std::endl;
     return *this;
 }

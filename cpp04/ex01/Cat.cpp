@@ -6,20 +6,28 @@ Cat::Cat() : Animal("cat") {
 }
 
 Cat::Cat(std::string type) : Animal(type) {
-      std::cout << "Cat constructor is called, " << type << " is born!" << std::endl;
+	brain = new Brain();
+    std::cout << "Cat constructor is called, " << type << " is born!" << std::endl;
 }
 
 Cat::Cat(const Cat& other): Animal(other)
 {
 	if(this != &other)
+	{
 		type = other.type;
+		brain = new Brain(*other.brain);
+	}
 	std::cout << "Class Cat: " << other.type << " is copied!" << std::endl;
 }
 
 Cat& Cat::operator=(const Cat& other)
 {
 	if(this != &other)
+	{
 		type = other.type;
+		delete brain;
+		brain = new Brain(*other.brain); // Deep copy of the brain
+	}
 	std::cout << "Class Cat:  " << type << " is assigned!" << std::endl;
 	return *this;
 }
