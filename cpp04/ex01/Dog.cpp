@@ -1,6 +1,7 @@
 #include "Dog.hpp"
 
 Dog::Dog() : Animal("dog"){
+    brain = new Brain();
     std::cout << "Dog default constructor called!" << std::endl;
 }
 
@@ -25,6 +26,7 @@ Dog& Dog::operator=(const Dog& other)
 }
 
 Dog::~Dog() {
+    delete brain; // Free the allocated Brain memory
 	std::cout << "Dog destructor called" << std::endl;
 }
 

@@ -26,7 +26,7 @@ int main()
             std::cout << "Cat deploying..." << cat_count << std::endl;
             Animals[i] = new Cat();
             std::cout << std::endl;
-        }
+        } 
     }
 
     for (int i = 0; i < 10; i++)

@@ -1,6 +1,7 @@
 #include "Cat.hpp"
 
 Cat::Cat() : Animal("cat") {
+	brain = new Brain();
     std::cout << "Cat default constructor called" << std::endl;
 }
 
@@ -24,6 +25,7 @@ Cat& Cat::operator=(const Cat& other)
 }
 
 Cat::~Cat() {
+	delete brain; // Free the allocated Brain memory
 	std::cout << "Cat destructor called" << std::endl;
 }
 
