@@ -2,38 +2,44 @@
 #include "Brain.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
+
 
 int main()
-{
-    const int size = 100;  
-    Animal *Animals[100];  
+{    
     
-    std::cout << "<----- Single test --->" << std::endl;
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
-
-    delete j;//should not create a leak
-    delete i;
-
-    std::cout << "<----- Multi test --->" << std::endl;
-    for (int i = 0; i < size / 2; ++i)
-    {
-        Animals[i] = new Dog();
-        std::cout << i << std::endl;
-    }
+    const Animal *Animals[10]; 
+    int dog_count = 0;
+    int cat_count = 0;
     
-    for (int i = size / 2; i < size; ++i)
-    {  
-        Animals[i] = new Cat();
-        std::cout << i << std::endl;
-    }
-    std::cout << "\n<----- Deleting all animals --->\n" << std::endl;
-    for (int i = 0; i < size; ++i)
+    for (int i = 0; i < 10; i++)
     {
+        if (i % 2 == 0)
+        {
+            dog_count++;
+            std::cout << "Dog deploying..." << dog_count << std::endl;
+            Animals[i] = new Dog();
+            std::cout << std::endl;
+        }
+        else
+        {
+            cat_count++;
+            std::cout << "Cat deploying..." << cat_count << std::endl;
+            Animals[i] = new Cat();
+            std::cout << std::endl;
+        }
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << "Animal " << i + 1 << " is a " << Animals[i]->getType() << std::endl;
+        Animals[i]->makeSound();
+        std::cout << std::endl;
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        std::cout << "Deleting Animal[" << i + 1 << "]: "<< Animals[i]->getType() << std::endl;
         delete Animals[i];
-        std::cout << i << std::endl;
     }
 
     return 0;

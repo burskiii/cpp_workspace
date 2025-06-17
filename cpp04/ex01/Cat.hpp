@@ -4,18 +4,19 @@
 #include "Animal.hpp"
 #include "Brain.hpp"
 
-class Cat : public Animal {
+#include <iostream>
+#include <string>
 
+class Cat : virtual public Animal {
     private:
-        Brain* brain;
-
-    public:
+		Brain* brain;
+	public:
         Cat();
-        Cat(const Cat& other);
-        Cat& operator=(const Cat& other);
-        ~Cat();
-
-        void makeSound() const;
+		Cat(std::string type);
+		Cat(const Cat& other);
+		~Cat();
+		Cat& operator=(const Cat& other);
+		void makeSound() const;
 } ;
 
 #endif
