@@ -1,4 +1,5 @@
 #include "Ice.hpp"
+#include "color.hpp"
 #include <iostream>
 
 Ice::Ice() : AMateria("ice") {}
@@ -17,12 +18,12 @@ Ice &Ice::operator=(const Ice& other) {
 }
 
 AMateria* Ice::clone() const {
-    std::cout << "Cloning Ice materia" << std::endl;
+	std::cout << "Cloning " << MAGENTA << "Ice " << RESET << "materia... " << std::endl;
     return new Ice(*this);
 }
 
 void Ice::use(ICharacter& target) {
-    std::cout << "* shoots an ice bolt at " << target.getName() << " *" << std::endl;
+    std::cout << BLUE << "* shoots an ice bolt at " << target.getName() << " *" << RESET << std::endl;
 }
 
 

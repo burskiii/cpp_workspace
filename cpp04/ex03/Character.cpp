@@ -1,4 +1,5 @@
 #include "Character.hpp"
+#include "color.hpp"
 #include <iostream>
 
 Character::Character(const std::string& name) : name(name) {
@@ -48,9 +49,12 @@ void Character::equip(AMateria* m) {
     for (int i = 0; i < 4; ++i) {
         if (!materia[i]) {
             materia[i] = m;
+			std::cout << YELLOW <<  "["<< m->getType() << "] [" << i << "] equipped." << RESET << std::endl;
             return;
         }
     }
+	std::cout << RED <<  " XX--> Character: No space to equip new materia ["<< m->getType() << "] . <--XX " << RESET << std::endl;
+	delete m; // Avoid memory leak if no space is available
 }
 
 void Character::unequip(int idx) {
@@ -60,9 +64,22 @@ void Character::unequip(int idx) {
 }
 
 void Character::use(int idx, ICharacter& target) {
-    if (idx < 0 || idx >= 4) 
+    if (idx < 0 || idx >= 4 || !materia[idx])
         return;
-    if (materia[idx]) {
-        materia[idx]->use(target);
+
+    std::cout << CYAN << name << " uses [" << materia[idx]->getType() 
+              << "] on " << target.getName() << RESET << std::endl;
+
+    materia[idx]->use(target);
+}
+
+void Character::printInventory() const {
+    std::cout << BOLD << "Inventory of " << name << ":\n";
+    for (int i = 0; i < 4; ++i) {
+        if (materia[i])
+            std::cout << " [" << i << "] " << materia[i]->getType() << "\n";
+        else
+            std::cout << " [" << i << "] <empty>\n";
     }
+    std::cout << RESET;
 }

@@ -1,4 +1,5 @@
 #include "MateriaSource.hpp"
+#include "color.hpp"
 #include <iostream>
 
 MateriaSource::MateriaSource() {
@@ -12,6 +13,7 @@ MateriaSource::~MateriaSource() {
         delete materia[i];
         materia[i] = NULL;
     }
+	
 }
 
 MateriaSource::MateriaSource(const MateriaSource& other)
@@ -44,7 +46,7 @@ void MateriaSource::learnMateria(AMateria* m) {
             return;
         }
     }
-    std::cout << "MateriaSource: No space to learn new materia." << std::endl;
+    std::cout << RED << " XX-->MateriaSource: No space to learn new materia [" <<  m->getType()  << " ]. <--XX" << RESET << std::endl;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type) {
@@ -53,6 +55,6 @@ AMateria* MateriaSource::createMateria(std::string const & type) {
             return materia[i]->clone();
         }
     }
-    std::cout << "MateriaSource: No materia of type " << type << " found." << std::endl;
-    return NULL;
+    std::cout << RED << "XX-->MateriaSource: No materia of type of [ " << type << " ] found. <--XX" << RESET << std::endl;
+	return NULL;
 }

@@ -1,4 +1,5 @@
 #include "Cure.hpp"
+#include "color.hpp"
 #include <iostream>
 
 Cure::Cure() : AMateria("cure") {}
@@ -17,9 +18,10 @@ Cure &Cure::operator=(const Cure& other) {
 Cure::~Cure() {}
 
 AMateria* Cure::clone() const {
+	std::cout << "Cloning " << MAGENTA << "Cure " << RESET << "materia... " << std::endl;
     return new Cure(*this);
 }
 
 void Cure::use(ICharacter& target) {
-    std::cout << "* heals " << target.getName() << "'s wounds *" << std::endl;
+    std::cout << GREEN <<  "* heals " << target.getName() << "'s wounds *" <<  RESET << std::endl;
 }
