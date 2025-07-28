@@ -19,10 +19,12 @@ class Character : public ICharacter {
         virtual void unequip(int idx);
         virtual void use(int idx, ICharacter& target);
 		void printInventory() const;
-   
-    private:
+		void setName(const std::string& newName);
+		
+	private:
         std::string name;
         AMateria* materia[4];
+		void deleteMateria();
 };
 
 #endif

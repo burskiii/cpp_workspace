@@ -47,6 +47,7 @@ void MateriaSource::learnMateria(AMateria* m) {
         }
     }
     std::cout << RED << " XX-->MateriaSource: No space to learn new materia [" <<  m->getType()  << " ]. <--XX" << RESET << std::endl;
+	delete m;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type) {

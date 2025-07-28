@@ -10,25 +10,29 @@ Character::Character(const std::string& name) : name(name) {
 
 Character::Character(const Character& other)  {
     this->name = other.name;
-    for (int i = 0; i < 4; ++i) {
-        if (other.materia[i])
-            this->materia[i] = other.materia[i]->clone(); //deep copy
-        else
-            this->materia[i] = NULL;
-    }
+	for (int i = 0; i < 4; i++) {
+		if (other.materia[i])
+			this->materia[i] = other.materia[i]->clone();
+		else
+			this->materia[i] = NULL;
+	}
 }
 
+
 Character& Character::operator=(const Character& other) {
+	std::cout << "Character copy assigment\n";
     if (this != &other) {
         this->name = other.name;
+		this->deleteMateria();
 		for (int i = 0; i < 4; i++) {
 			if (this->materia[i])
-				delete this->materia[i];
-		
-			if (other.materia[i])
-				this->materia[i] = other.materia[i]->clone();
-			else
-				this->materia[i] = NULL;
+			{
+				if (other.materia[i] == NULL)
+					this->materia[i] = NULL;
+				else
+					this->materia[i] = other.materia[i]->clone();
+			}
+
         }
     }
     return *this;
@@ -82,4 +86,17 @@ void Character::printInventory() const {
             std::cout << " [" << i << "] <empty>\n";
     }
     std::cout << RESET;
+}
+
+void Character::deleteMateria() {
+    for (int i = 0; i < 4; ++i) {
+        if (materia[i]) {
+            delete materia[i];
+            materia[i] = NULL;
+        }
+    }
+}
+
+void Character::setName(const std::string& newName) {
+	name = newName;
 }

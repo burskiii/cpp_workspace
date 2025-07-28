@@ -1,9 +1,0 @@
-My AAnimal class is abstract thanks to a pure virtual function makeSound().
-I used AAnimal* pointers to create Dog and Cat objects, achieving polymorphism.
-Each AAnimal holds a dynamically allocated Brain which is properly deep-copied and deleted.
-The destructors are virtual, so everything is released in the correct order.
-
-
-This exercise tests my understanding of abstract
- classes and pure virtual functions. It ensures 
- that the base class AAnimal acts as an interface, and that no instance of AAnimal can exist without a defined behavior. The functionality stays the same as ex02 — but the design is now more robust and safe.

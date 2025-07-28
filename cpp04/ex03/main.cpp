@@ -96,6 +96,7 @@ int main()
     original->equip(new Cure());
 
     Character* copy = new Character(*original); 
+	copy->setName("copy");
 
     std::cout << "== Use original ==" << std::endl;
     original->use(0, *original);
