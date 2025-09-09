@@ -19,7 +19,6 @@ int main()
 		std::cerr << e.what() << "\n";
 	}
 
-
 	std::cout << "Bureaucrat d('D', 151);" << std::endl;
 	try
 	{
@@ -54,4 +53,3 @@ int main()
 	return 0;
 
 }
-#
