@@ -1,55 +1,33 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main()
 {
-	Bureaucrat a("A", 1);
-	std::cout << a <<std::endl;
-
-	Bureaucrat b("B", 150);
-	std::cout << b <<std::endl;
-
-	std::cout << "Bureaucrat c('C', 0);" << std::endl;
 	try
 	{
-		Bureaucrat c("C", 0);
-		std::cout << c <<std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << "\n";
-	}
+		Bureaucrat b1("b1", 1);
+		Bureaucrat b2("b2", 150);
+		Form f1("f1", 1, 1);
+		Form f2("f2", 75, 75);
+		Form f3("f3", 150, 150);
 
-	std::cout << "Bureaucrat d('D', 151);" << std::endl;
-	try
-	{
-		Bureaucrat d("D", 151);
-		std::cout << d <<std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << "\n";
-	}
+		std::cout << b1;
+		std::cout << b2;
+		std::cout << f1;
+		std::cout << f2;
+		std::cout << f3;
 
-	std::cout << "increment_test from a" << std::endl;
-	try
-	{
-		a.incrementGrade();
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << "\n";
-	}
+		b1.signForm(f1);
+		b1.signForm(f2);
+		b1.signForm(f3);
 
-	std::cout << "decrement_test from b" << std::endl;
-	try
-	{
-		b.decrementGrade();
+		b2.signForm(f1);
+		b2.signForm(f2);
+		b2.signForm(f3);
 	}
-	catch(const std::exception& e)
+	catch (std::exception &e)
 	{
-		std::cerr << e.what() << "\n";
+		std::cerr << e.what() << std::endl;
 	}
-
 	return 0;
-
 }

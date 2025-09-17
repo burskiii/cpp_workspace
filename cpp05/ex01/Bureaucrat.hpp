@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <exception>
+#include "Form.hpp"
 
 class Bureaucrat {
 	public:
@@ -36,12 +37,8 @@ class Bureaucrat {
 					return ("Grade too low!");
 				}
 		};
-
-		void signForm();//must call Form::beSigned() to attempt to sign the form.
-		//if the form is signed successfully, print:
-			//<bureaucrat> signed <form>
-		//otherwise
-			//<bureaucrat> couldn’t sign <form> because <reason>.
+		void signForm(Form &form);
+		
 	private:
 		const std::string name;
 		int grade;
