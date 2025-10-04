@@ -1,15 +1,11 @@
 #include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
-AForm::AForm() : name("Default"), isSigned(false), toSign(150), toExec(150) {
-    if (toSign < 1 || toExec < 1)
-        throw GradeTooHighException();
-    if (toSign > 150 || toExec > 150)
-        throw GradeTooLowException();
+AForm::AForm() : isSigned(false), name(""), toSign(150), toExec(150) {
 }
 
 AForm::AForm(const std::string &name, int toSign, int toExec)
-    : name(name), isSigned(false), toSign(toSign), toExec(toExec) {
+    : isSigned(false), name(name), toSign(toSign), toExec(toExec) {
     if (toSign < 1 || toExec < 1)
         throw GradeTooHighException();
     if (toSign > 150 || toExec > 150)

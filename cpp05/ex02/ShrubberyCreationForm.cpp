@@ -13,27 +13,28 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {}
 
 void ShrubberyCreationForm::execute(const Bureaucrat &executor) const 
 {
-    if (AForm::getToSign() == 145 && AForm::getToExec() == 137)
+    if (executor.getGrade() > getToExec())
+        throw AForm::GradeTooLowException();
+    if (!getIsSigned())
+        throw AForm::GradeTooLowException();
+
+    std::ofstream outfile((target + "_shrubbery").c_str());
+    if (!outfile)
     {
-        std::ofstream outfile(target + "_shrubbery");
-        if (!outfile)
-        {
-            std::cerr << "Error creating file: " << target + "_shrubbery" << std::endl;
-            return;
-        }
-        outfile << "       _-_\n"
-                   "    /~~   ~~\\\n"
-                   " /~~         ~~\\\n"
-                   "{               }\n"
-                   " \\  _-     -_  /\n"
-                   "   ~  \\\\ //  ~\n"
-                   "_- -   | | _- _\n"
-                   "  _ -  | |   -_\n"
-                   "      // \\\\\n";
-        outfile.close();
+        std::cerr << "Error: Could not open file " << target + "_shrubbery" << std::endl;
+        return;
     }
-    else
-    {
-        throw GradeTooLowException();
-    }
+
+    outfile << "    🌳🌲 ASCII TREE 🌲🌳\n";
+    outfile << "       _-_" << std::endl;
+    outfile << "    /~~    ~~\\" << std::endl;
+    outfile << "  /~~      ~~\\" << std::endl;
+    outfile << " /~~         ~~\\" << std::endl;
+    outfile << "{               }" << std::endl;
+    outfile << " \\  _-     -_  /" << std::endl;
+    outfile << "   ~  \\\\ //  ~" << std::endl;
+    outfile << "_- -   | | _- _" << std::endl;
+    outfile << "  _ -  | |   -_" << std::endl;
+    outfile << "      // \\\\" << std::endl;
+    outfile.close();
 }

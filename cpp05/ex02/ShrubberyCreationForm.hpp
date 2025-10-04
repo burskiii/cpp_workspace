@@ -3,6 +3,7 @@
 
 #include "AForm.hpp"
 #include <string>
+
 class ShrubberyCreationForm : public AForm
 {
 private:
@@ -11,7 +12,6 @@ public:
     ShrubberyCreationForm(const std::string &target);
     ~ShrubberyCreationForm();
     void execute(const Bureaucrat &executor) const;         
-
 };
 
 #endif
