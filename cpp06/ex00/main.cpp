@@ -14,8 +14,16 @@ int main(int argc, char** argv)
     std::string input = argv[1];
    Converter converter;
 
+//    if (!converter.isValidNumber(input))
+//    {
+//        std::cout << "Invalid input" << std::endl;
+//        return 1;
+//    }
+
    converter.convertToChar(input);
    converter.convertToInt(input);
+    converter.convertToFloat(input);
+    converter.convertToDouble(input);
 
 
 }
