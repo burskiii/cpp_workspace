@@ -18,7 +18,7 @@ class Converter
         void convertToInt(const std::string& input);
         void convertToFloat(const std::string& input);
         void convertToDouble(const std::string& input);
-        void pseudoLiteral(const std::string& input);
+        // void pseudoLiteral(const std::string& input);
         bool isNotDigit(const std::string& input);
         bool isPseudoLiteral(const std::string& input);
         bool nonDisplayableChar(const std::string& input);

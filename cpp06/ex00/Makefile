@@ -8,20 +8,19 @@ SRCS = main.cpp Converter.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-
 all: $(NAME)
 
 $(NAME): $(OBJS)
-        $(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.cpp
-        $(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-        $(RM) $(OBJS)
+	$(RM) $(OBJS)
 
 fclean: clean
-        $(RM) $(NAME)
+	$(RM) $(NAME)
 
 RM = rm -rf
 
