@@ -1,8 +1,9 @@
 #include "Converter.hpp"
 
 Converter::Converter() {}
-
 Converter::~Converter() {}
+Converter::Converter(const Converter& other) { (void)other; }
+Converter& Converter::operator=(const Converter& other) { (void)other; return *this; }
 
 bool Converter::isPseudoLiteral(const std::string& input)
 {

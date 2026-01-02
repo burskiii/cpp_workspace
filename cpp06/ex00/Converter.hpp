@@ -13,6 +13,8 @@ class Converter
     public:
         Converter();
         ~Converter();
+        Converter(const Converter& other);
+        Converter& operator=(const Converter& other);
 
         void convertToChar(const std::string& input);
         void convertToInt(const std::string& input);
