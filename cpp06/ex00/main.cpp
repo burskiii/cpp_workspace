@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "Converter.hpp"
+#include "ScarlaConverter.hpp"
 
 
 int main(int argc, char** argv)
@@ -11,13 +11,9 @@ int main(int argc, char** argv)
         std::cout << "Usage: " << argv[0] << " <string>" << std::endl;
         return 1;
     }
-    std::string input = argv[1];
-    Converter converter;
 
-    converter.convertToChar(input);
-    converter.convertToInt(input);
-    converter.convertToFloat(input);
-    converter.convertToDouble(input);
+    ScarlaConverter::convert(argv[1]);
+    return 0;
 
 
 }
