@@ -1,7 +1,11 @@
-#include "Base.hpp"
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
+
+#include "Base.hpp"
+#include "A.hpp"
+#include "B.hpp"
+#include "C.hpp"
 
 int main()
 {
@@ -9,7 +13,7 @@ int main()
 
     for (int i = 0; i < 10; ++i)
     {
-        Base* obj = generate();
+        Base* obj = Base::generate();
 
         std::cout << "Identifying by pointer: ";
         identify(obj);
