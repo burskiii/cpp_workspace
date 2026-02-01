@@ -9,6 +9,17 @@ bool isPseudoLiteral(const std::string& input)
 
 void ScarlaConverter::convert(const std::string& input)
 {
+    for (size_t i = 0; i < input.size(); ++i)
+    {
+        if (std::isspace(static_cast<unsigned char>(input[i])))
+        {
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: impossible\n";
+            std::cout << "double: impossible\n";
+            return;
+        }
+    }
     if (input.size() == 3 && input[0] == '\'' && input[2] == '\'')
     {
         char c = input[1];
@@ -18,7 +29,8 @@ void ScarlaConverter::convert(const std::string& input)
         std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(c) << std::endl;
         return;
     }
-    if(input.size() == 1 && !std::isdigit(input[0]))
+    if (input.size() == 1 && std::isprint((unsigned char)input[0]) && !std::isdigit((unsigned char)input[0])
+    && input[0] != '.' && input[0] != '+' && input[0] != '-')
     {
         char c = input[0];
         std::cout << "char: '" << c << "'" << std::endl;
@@ -27,7 +39,7 @@ void ScarlaConverter::convert(const std::string& input)
         std::cout << "double: " << std::fixed << std::setprecision(1) << static_cast<double>(c) << std::endl;
         return;
     }
-    
+    // ---------- pseudo-literal handling ----------
     if (isPseudoLiteral(input))
     {
         std::cout << "char: impossible" << std::endl;
@@ -40,8 +52,8 @@ void ScarlaConverter::convert(const std::string& input)
         }
         else
         {
-            std::cout << "float: " << input.substr(0, input.size() - 1) << "f" << std::endl;
-            std::cout << "double: " << input.substr(0, input.size() - 1) << std::endl;
+            std::cout << "float: " << input << std::endl;                         // nanf / +inff / -inff
+            std::cout << "double: " << input.substr(0, input.size() - 1) << std::endl; // nan / +inf / -inf
         }
         return;
     }
@@ -61,8 +73,6 @@ void ScarlaConverter::convert(const std::string& input)
     // reject inputs like ".", "+.", "-", "f", "1f"?? (1f should be invalid per "most common form")
     if (ok)
     {
-        // disallow empty numeric part such as "." or "+."
-        // strtod would parse "." as 0 and end == input.c_str(), we want invalid
         if (end == input.c_str())
             ok = false;
     }
@@ -107,6 +117,8 @@ void ScarlaConverter::convert(const std::string& input)
     std::cout << "float: " << static_cast<float>(value) << "f" << std::endl;
     std::cout << "double: " << static_cast<double>(value) << std::endl;
 }
+
+
 
 ScarlaConverter::ScarlaConverter() {}
 ScarlaConverter::~ScarlaConverter() {}
