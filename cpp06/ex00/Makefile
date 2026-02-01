@@ -1,10 +1,10 @@
-NAME = ScarlaConverter
+NAME = ScalarConverter
 
 CC = g++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp ScarlaConverter.cpp
+SRCS = main.cpp ScalarConverter.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

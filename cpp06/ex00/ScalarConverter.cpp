@@ -1,13 +1,13 @@
-#include "ScarlaConverter.hpp"
+#include "ScalarConverter.hpp"
 
-bool isPseudoLiteral(const std::string& input)
+static bool isPseudoLiteral(const std::string& input)
 {
     return (input == "nan" || input == "+inf" || 
             input == "-inf" || input == "nanf" || 
             input == "+inff" || input == "-inff");
 }
 
-void ScarlaConverter::convert(const std::string& input)
+void ScalarConverter::convert(const std::string& input)
 {
     for (size_t i = 0; i < input.size(); ++i)
     {
@@ -120,11 +120,11 @@ void ScarlaConverter::convert(const std::string& input)
 
 
 
-ScarlaConverter::ScarlaConverter() {}
-ScarlaConverter::~ScarlaConverter() {}
-ScarlaConverter::ScarlaConverter(const ScarlaConverter& other) { (void)other
+ScalarConverter::ScalarConverter() {}
+ScalarConverter::~ScalarConverter() {}
+ScalarConverter::ScalarConverter(const ScalarConverter& other) { (void)other
 ; }
-ScarlaConverter& ScarlaConverter::operator=(const ScarlaConverter& other)
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 {
     (void)other;
     return *this;

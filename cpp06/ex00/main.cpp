@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "ScarlaConverter.hpp"
+#include "ScalarConverter.hpp"
 
 
 int main(int argc, char** argv)
@@ -12,7 +12,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    ScarlaConverter::convert(argv[1]);
+    ScalarConverter::convert(argv[1]);
     return 0;
 
 

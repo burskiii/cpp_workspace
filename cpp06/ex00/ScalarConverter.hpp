@@ -10,16 +10,16 @@
 #include <climits> //limits
 #include <cerrno> //errno
 
-class ScarlaConverter
+class ScalarConverter
 {
     public:
     static void convert(const std::string& input);
 
     private:
-    ScarlaConverter();
-    ~ScarlaConverter();
-    ScarlaConverter(const ScarlaConverter& other);
-    ScarlaConverter& operator=(const ScarlaConverter& other);
+    ScalarConverter();
+    ~ScalarConverter();
+    ScalarConverter(const ScalarConverter& other);
+    ScalarConverter& operator=(const ScalarConverter& other);
 
 };
 
