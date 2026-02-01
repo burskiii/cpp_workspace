@@ -1,7 +1,9 @@
 #ifndef SERIALIZATION_HPP
 #define SERIALIZATION_HPP
 
-#include <stdint.h>
+#include <cstddef>   // uintptr_t not included in cstdint
+#include <stdint.h>  // uintptr_t
+
 
 #include "Data.hpp"
 

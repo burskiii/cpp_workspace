@@ -1,10 +1,10 @@
-NAME = Serialization
+NAME = Serializer
 
 CC = g++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp Serialization.cpp Data.cpp
+SRCS = main.cpp Serializer.cpp Data.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
