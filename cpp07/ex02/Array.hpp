@@ -1,83 +1,117 @@
 #ifndef ARRAY_HPP
 #define ARRAY_HPP
 
+#include <iostream>
 #include <exception>
-#include <cstddef>
+
+template <typename T> class Array
+{
+    public:
+        Array();
+        Array(int n);
+        Array( Array const &src);
+        ~Array();
+        Array & operator=(Array const &src);
+
+        T &operator[](int i);
+        const T &operator[](int i) const;
+        int getSize() const;
+
+        class OutOfBound: public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
+
+	private:
+        T *array;
+        int size;
+
+};
 
 template <typename T>
-class Array
+ Array<T>::Array()
 {
-private:
-    T*            _data;
-    unsigned int  _size;
+    array = new T[0];
+    size = 0;
+}
 
-public:
-    // Exception type for out-of-bounds
-    class OutOfBounds : public std::exception
+template <typename T> 
+Array<T>::Array(int n)
+{
+    if (n <= 0)
     {
-    public:
-        virtual const char* what() const throw() { return "Array index out of bounds"; }
-    };
-
-    // 1) Default constructor: empty array
-    Array() : _data(NULL), _size(0) {}
-
-    // 2) Constructor with n: n default-initialized elements
-    Array(unsigned int n) : _data(NULL), _size(n)
-    {
-        if (_size == 0)
-            _data = NULL;
-        else
-            _data = new T[_size]; // MUST be new[]
+        array = new T[0];
+        size = 0;
     }
-
-    // 3) Copy constructor: deep copy
-    Array(const Array& other) : _data(NULL), _size(0)
+    else
     {
-        *this = other;
+         array = new T[n];
+         size = n;
+    }      
+}
+
+template <typename T> 
+Array<T>::Array(Array<T> const &src)
+{
+    size = src.size;
+    array = new T[size];
+
+    for (int i = 0; i < size; i++)
+    {
+        array[i] = src.array[i];
     }
+}
 
-    // 4) Assignment operator: deep copy, self-assign safe
-    Array& operator=(const Array& other)
+template <typename T>
+ Array<T>::~Array()
+{
+    delete[] array;
+}
+
+template <typename T> 
+Array<T> &Array<T>::operator=(Array<T> const &src)
+{
+    if (this != &src)
     {
-        if (this != &other)
+        delete[] array;
+        size = src.size;
+        array = new Array[size];
+        for(int i = 0; i < size; i++)
         {
-            delete[] _data;
-            _size = other._size;
-            _data = (_size == 0) ? NULL : new T[_size];
-            for (unsigned int i = 0; i < _size; ++i)
-                _data[i] = other._data[i];
+            array[i] = src.array[i];
         }
-        return *this;
     }
+    return (*this);
+}
 
-    // Destructor
-    ~Array()
-    {
-        delete[] _data;
-    }
+template <typename T>
+int Array<T>::getSize() const
+{
+    return size;
+}
 
-    // 5) Subscript operator with bounds check
-    T& operator[](unsigned int index)
-    {
-        if (index >= _size)
-            throw OutOfBounds();
-        return _data[index];
-    }
+template <typename T>
+T &Array<T>::operator[](int index)
+{
+    if (index < 0 || index >= size)
+        throw OutOfBound();
+    return array[index];
+}
 
-    // Const subscript operator
-    const T& operator[](unsigned int index) const
-    {
-        if (index >= _size)
-            throw OutOfBounds();
-        return _data[index];
-    }
+template <typename T>
+const T &Array<T>::operator[](int index) const
+{
+    if (index < 0 || index >= size)
+        throw OutOfBound();
+    return array[index];
+}
 
-    // 6) size() const
-    unsigned int size() const
-    {
-        return _size;
-    }
-};
+template <typename T> 
+const char* Array<T>::OutOfBound::what() const throw()
+{
+	std::cout << std::endl;
+    return ("Error message: out of bound");
+}
 
 #endif
