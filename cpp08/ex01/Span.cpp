@@ -5,15 +5,15 @@ span::span():n(0), vector(std::vector<int>())
 
 }
 
-span::span(unsigned int n):n(n), vector(std::vector<int>())
-{
-
-}
-
 span::span(span const &other)
 {
     n = other.n;
     vector = other.vector;
+}
+
+span::span(unsigned int n):n(n), vector(std::vector<int>())
+{
+
 }
 
 span &span::operator=(span const &other)
@@ -31,14 +31,14 @@ span::~span()
 
 }
 
-void span::addNumber(int number)
+void span::addNumber(unsigned int n)
 {
 	if (vector.size() >= n)
 		throw spanIsFull();
-	vector.push_back(number);
+	vector.push_back(n);
 }
 
-void span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end)
+void span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end, unsigned int n)
 {
 	if (std::distance(begin, end) + vector.size() > n)
 		throw spanIsFull();
@@ -52,7 +52,7 @@ int span::shortestSpan()
 	std::vector<int> sorted(vector);
 	std::sort(sorted.begin(), sorted.end());
 	int minSpan = sorted[1] - sorted[0];
-	for (size_t i = 2; i < sorted.size(); i++)
+	for (unsigned int i = 2; i < sorted.size(); i++)
 	{
 		int span = sorted[i] - sorted[i - 1];
 		if (span < minSpan)
@@ -65,8 +65,8 @@ int span::longestSpan()
 {
 	if (vector.size() < 2)
 		throw spanNumLacking();
-	int min = *std::min_element(vector.begin(), vector.end());
-	int max = *std::max_element(vector.begin(), vector.end());
+	int min = *std::min_element(vector.begin(), vector.end()); // available in C++98, returns an iterator to the minimum element in the range [first, last)
+	int max = *std::max_element(vector.begin(), vector.end()); // available in C++98, returns an iterator to the maximum element in the range [first, last)
 	return max - min;
 }
 

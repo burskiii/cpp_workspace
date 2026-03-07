@@ -19,6 +19,12 @@ int main()
 	std::cout << "---------------" << std::endl;
 	::easyfind(vector, 21);
 	::easyfind(list, 21);
+	std::cout << "---------------" << std::endl;
+	::easyfind(vector, 0);
+	::easyfind(list, 0);
+	std::cout << "---------------" << std::endl;
+	::easyfind(vector, 100);
+	::easyfind(list, 100);
 
 	return (0);
 }
