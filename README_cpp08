@@ -1,0 +1,91 @@
+Types of STL Algorithms:
+
+Sorting Algorithms:
+
+std::sort: Sorts a container or range of elements in ascending order.
+
+std::stable_sort: Sorts a container but preserves the relative order of elements that are considered equal.
+
+std::partial_sort: Partially sorts a container, leaving the remaining elements in an unspecified order.
+
+Searching Algorithms:
+
+std::find: Searches for an element in a range and returns an iterator to it if found.
+std::find 会遍历从 container.begin() 到 container.end() 这个范围内的所有元素，直到找到匹配的 value 为止。
+如果找到了匹配的元素，std::find 会返回一个指向该元素的迭代器。
+如果没有找到，std::find 会返回 container.end()
+
+
+std::binary_search: Checks whether an element exists in a sorted range.
+
+std::lower_bound: Finds the first position where an element can be inserted without breaking the order (in a sorted container).
+
+Manipulation Algorithms:
+
+std::reverse: Reverses the order of elements in a range.
+
+std::rotate: Rotates the elements of a range.
+
+std::shuffle: Randomly shuffles the elements of a container.
+
+std::unique: Removes consecutive duplicate elements.
+
+Numeric Algorithms:
+
+std::accumulate: Computes the sum of a range of elements.
+
+std::inner_product: Computes the sum of the products of corresponding elements in two ranges.
+
+std::partial_sum: Computes partial sums (cumulative sums) for a range of elements.
+
+Comparison Algorithms:
+
+std::equal: Compares two ranges for equality.
+
+std::lexicographical_compare: Compares two ranges element by element lexicographically.
+
+Set Operations:
+
+std::set_union: Computes the union of two sets.
+
+std::set_intersection: Computes the intersection of two sets.
+
+std::set_difference: Computes the difference of two sets.
+
+For_each and Transformations:
+
+std::for_each: Applies a function to every element in a range.
+
+std::transform: Applies a transformation to each element of a range.
+
+Partitioning Algorithms:
+
+std::partition: Reorganizes elements in a range so that all elements satisfying a condition come before those that do not.
+
+std::stable_partition: Similar to partition, but maintains the relative order of the elements.
+
+
+ex02
+1. Understanding std::stack:
+
+std::stack is an adapter container in C++ that works on top of other containers, typically std::deque or std::vector.
+
+It provides a LIFO (Last In, First Out) structure with operations like:
+
+push(): Add an element to the stack.
+
+pop(): Remove the top element from the stack.
+
+top(): Get the element at the top of the stack.
+
+size(): Get the number of elements in the stack.
+
+empty(): Check if the stack is empty.
+
+
+
+
+ex00 
+	std::vector<int> vector;
+	std::list<int> list;
+
