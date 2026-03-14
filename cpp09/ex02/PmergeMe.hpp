@@ -22,9 +22,11 @@ class PmergeMe {
         ~PmergeMe();
 
         void checkAndReadInput(int ac, char **av);
-        // std::vector<node> fordJohnsonSortVector(std::vector<int> &winners);
-        // std::deque<node> fordJohnsonSortDeque(std::deque<int> &deque);
-
+        
+        std::vector<node> fordJohnsonSortVector(std::vector<node> &winners);
+        std::deque<node> fordJohnsonSortDeque(std::deque<node> &deque);
+        std::vector<node> generateJacobsthal(int n);
+        void mainInsertion();
 
     private:
         std::string input;

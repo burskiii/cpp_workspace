@@ -63,3 +63,12 @@ void PmergeMe::checkAndReadInput(int ac, char **av)
     std::cout << "--- End ---" << std::endl;    
 
 }
+
+std::vector<node> PmergeMe::fordJohnsonSortVector(std::vector<node> &data)
+{
+    if (data.size() <= 1) 
+        return data;
+
+    
+
+}
