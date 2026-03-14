@@ -51,17 +51,14 @@ void PmergeMe::checkAndReadInput(int ac, char **av)
     }
     //debug
     std::cout << "--- DEBUG: vectorData content ---" << std::endl;
-    for (size_t i = 0; i < this->vectorData.size(); ++i) {
+    for (size_t i = 0; i < this->vectorData.size(); ++i)
         std::cout << "Element[" << i << "]: " << this->vectorData[i].value << std::endl;
-    }
     std::cout << "Total size: " << this->vectorData.size() << std::endl;
     std::cout << "--- End ---" << std::endl;
 
     std::cout << "--- DEBUG: dequeData content ---" << std::endl;
-    for (size_t i = 0; i < this->dequeData.size(); ++
-i) {
+    for (size_t i = 0; i < this->dequeData.size(); ++i) 
         std::cout << "Element[" << i << "]: " << this->dequeData[i].value << std::endl;
-    }
     std::cout << "Total size: " << this->dequeData.size() << std::endl;
     std::cout << "--- End ---" << std::endl;    
 
