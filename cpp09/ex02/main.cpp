@@ -9,5 +9,9 @@ int main(int ac, char **av)
     }
     PmergeMe pmergeMe;
     pmergeMe.checkAndReadInput(ac, av);
+    pmergeMe.runVectorSort();
+    pmergeMe.runDequeSort();
+    pmergeMe.printResults();
+
      return 0;
 }

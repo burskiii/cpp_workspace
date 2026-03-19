@@ -5,13 +5,14 @@
 #include <vector>
 #include <deque>
 #include <algorithm>
-#include <stdexcept>
 #include <ctime>
+#include <sys/time.h>
 #include <sstream>
+#include <iomanip>
 
 struct node {
     int value;
-    std::vector<int> losers;
+    std::vector<int> loser;
 };
 
 class PmergeMe {
@@ -23,17 +24,31 @@ class PmergeMe {
 
         void checkAndReadInput(int ac, char **av);
         
-        std::vector<node> fordJohnsonSortVector(std::vector<node> &winners);
-        std::deque<node> fordJohnsonSortDeque(std::deque<node> &deque);
-        std::vector<node> generateJacobsthal(int n);
-        void mainInsertion();
+        // Vector 
+        std::vector<node> fordJohnsonSortVector(std::vector<node> &data);
+        std::vector<int> generateJacobsthal(int n);
+        void compareNodes(std::vector<node> &data, std::vector<node> &winners);
+        void binaryInsertionVector(std::vector<node> &dest, node &toInsert);
+        void runVectorSort();
+        
+        //deque
+        std::deque<node> fordJohnsonSortDeque(std::deque<node> &data);
+        // std::deque<int> generateJacobsthalOrderDeque(size_t n);
+        void compareNodesDeque(std::deque<node> &data, std::deque<node> &winners);
+        void binaryInsertionDeque(std::deque<node> &dest, node &toInsert);
+        void runDequeSort();
+
+        void printResults() const;
 
     private:
         std::string input;
+        size_t inputSize; // size of the input sequence
         std::vector<node> vectorData;
         std::deque<node> dequeData;
-        // double vectorTime;
-        // double dequeTime;
+        std::vector<node> vectorResult;
+        std::deque<node> dequeResult;
+        double vectorTime;
+        double dequeTime;
 };
 
 #endif
