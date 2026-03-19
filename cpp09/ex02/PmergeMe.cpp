@@ -1,98 +1,118 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe() {}
+PmergeMe::PmergeMe() : inputSize(0), vectorTime(0.0), dequeTime(0.0) {}
 
-PmergeMe::PmergeMe(const PmergeMe &other) {
+PmergeMe::PmergeMe(const PmergeMe &other)
+{
     *this = other;
 }
 
-PmergeMe &PmergeMe::operator=(const PmergeMe &other) {
-    if (this != &other) {
-        this->input = other.input;
-        this->inputSize = other.inputSize;
-        this->vectorData = other.vectorData;
-        this->dequeData = other.dequeData;
-        this->vectorResult = other.vectorResult;
-        this->dequeResult = other.dequeResult;
-        this->vectorTime = other.vectorTime;
-        this->dequeTime = other.dequeTime;
+PmergeMe &PmergeMe::operator=(const PmergeMe &other)
+{
+    if (this != &other)
+    {
+        input = other.input;
+        inputSize = other.inputSize;
+        vectorData = other.vectorData;
+        dequeData = other.dequeData;
+        vectorResult = other.vectorResult;
+        dequeResult = other.dequeResult;
+        vectorTime = other.vectorTime;
+        dequeTime = other.dequeTime;
     }
     return *this;
 }
 
 PmergeMe::~PmergeMe() {}
 
-
 void PmergeMe::checkAndReadInput(int ac, char **av)
 {
+    vectorData.clear();
+    dequeData.clear();
+
     for (int i = 1; i < ac; ++i)
     {
         std::string s = av[i];
-        if (s. find_first_not_of("0123456789 ") != std::string::npos)
+        if (s.find_first_not_of("0123456789 ") != std::string::npos)
         {
-            std::cout << "Error: Invalid character in input" << std::endl;
+            std::cout << "Error" << std::endl;
             exit(1);
         }
 
         std::stringstream ss(s);
-        std::string temp;
-        while (ss >> temp)
+        std::string token;
+        while (ss >> token)
         {
-            long value = std::atol(temp.c_str());
-            if (value < 0 || value > 2147483647)
+            long value = std::atol(token.c_str());
+            if (value <= 0 || value > 2147483647)
             {
-                std::cout << "Error: Invalid number in input" << std::endl;
+                std::cout << "Error" << std::endl;
                 exit(1);
             }
 
             node n;
             n.value = static_cast<int>(value);
+            n.loserValue = 0;
+            n.hasLoser = false;
             vectorData.push_back(n);
             dequeData.push_back(n);
-
         }
-        //should return the size of ss? for the printresult?
-        this->inputSize = vectorData.size();
     }
-    //debug
-    std::cout << "--- DEBUG: vectorData content ---" << std::endl;
-    for (size_t i = 0; i < this->vectorData.size(); ++i)
-        std::cout << "Element[" << i << "]: " << this->vectorData[i].value << std::endl;
-    std::cout << "Total size: " << this->vectorData.size() << std::endl;
-    std::cout << "--- End ---" << std::endl;
-
-    std::cout << "--- DEBUG: dequeData content ---" << std::endl;
-    for (size_t i = 0; i < this->dequeData.size(); ++i) 
-        std::cout << "Element[" << i << "]: " << this->dequeData[i].value << std::endl;
-    std::cout << "Total size: " << this->dequeData.size() << std::endl;
-    std::cout << "--- End ---" << std::endl;    
-
+    inputSize = vectorData.size();
 }
 
-void PmergeMe::compareNodes(std::vector<node> &data, std::vector<node> &winners)
+void PmergeMe::compareVecNodes(std::vector<node> &data, std::vector<node> &winners)
 {
-    //data[0]vs[1], data[2]vs[3]...
     for (size_t i = 0; i + 1 < data.size(); i += 2)
     {
+        node winner;
         if (data[i].value > data[i + 1].value)
         {
-            winners.push_back(data[i]);
-            winners.back().loser.push_back(data[i + 1].value);
+            winner.value = data[i].value;
+            winner.loserValue = data[i + 1].value;
+            winner.hasLoser = true;
         }
-        else 
+        else
         {
-            winners.push_back(data[i + 1]);
-            winners.back().loser.push_back(data[i].value);
+            winner.value = data[i + 1].value;
+            winner.loserValue = data[i].value;
+            winner.hasLoser = true;
         }
+        winners.push_back(winner);
     }
 }
 
-void PmergeMe::binaryInsertionVector(std::vector<node> &dest, node &toInsert) {
+void PmergeMe::collectVecPending(std::vector<node> &data, const std::vector<node> &winners,
+                                 std::vector<node> &pending)
+{
+    for (size_t i = 0; i < winners.size(); ++i)
+    {
+        if (winners[i].hasLoser)
+        {
+            node p;
+            p.value = winners[i].loserValue;
+            p.loserValue = 0;
+            p.hasLoser = false;
+            pending.push_back(p);
+        }
+    }
 
-//find position
+    if (data.size() % 2 != 0)
+    {
+        node p;
+        p.value = data.back().value;
+        p.loserValue = 0;
+        p.hasLoser = false;
+        pending.push_back(p);
+    }
+}
+
+void PmergeMe::binaryInsertionVector(std::vector<node> &dest, const node &toInsert)
+{
     int low = 0;
-    int high = dest.size() - 1;
-    while (low <= high) 
+    int high = static_cast<int>(dest.size()) - 1;
+
+    while (low <= high)
     {
         int mid = low + (high - low) / 2;
         if (dest[mid].value < toInsert.value)
@@ -105,55 +125,68 @@ void PmergeMe::binaryInsertionVector(std::vector<node> &dest, node &toInsert) {
 
 std::vector<node> PmergeMe::fordJohnsonSortVector(std::vector<node> &data)
 {
-    if (data.size() <= 1) return data;
+    if (data.size() <= 1)
+        return data;
 
-    std::vector<node> currentData = data;
-    size_t n = currentData.size();
-
-    bool hasstraggler = (n % 2 != 0);
-    node straggler;
-    if (hasstraggler)
-    {
-        straggler = currentData.back();
-        currentData.pop_back();
-    }
-    
     std::vector<node> winners;
-    compareNodes(currentData, winners); 
-    
-    std::vector<node> sortedWinners = fordJohnsonSortVector(winners);
-    
     std::vector<node> pending;
-    for (size_t i = 0; i < sortedWinners.size(); ++i)
+    winners.reserve((data.size() + 1) / 2);
+    pending.reserve((data.size() + 1) / 2);
+
+    for (size_t i = 0; i + 1 < data.size(); i += 2)
     {
-        if (!sortedWinners[i].loser.empty()) 
+        node big;
+        node small;
+
+        if (data[i].value > data[i + 1].value)
         {
-            node p;
-            p.value = sortedWinners[i].loser.back();
-            // sortedWinners[i].loser.pop_back();
-            p.loser.clear();
-            pending.push_back(p);
+            big = data[i];
+            small = data[i + 1];
         }
+        else
+        {
+            big = data[i + 1];
+            small = data[i];
+        }
+
+        big.hasLoser = true;
+        big.loserValue = small.value;
+        winners.push_back(big);
+
+        small.hasLoser = false;
+        small.loserValue = 0;
+        pending.push_back(small);
     }
-    if (hasstraggler)
+
+    if (data.size() % 2 != 0)
+    {
+        node straggler = data.back();
+        straggler.hasLoser = false;
+        straggler.loserValue = 0;
         pending.push_back(straggler);
+    }
 
-    // if (!pending.empty())
-    //     mainChain.insert(mainChain.begin(), pending[0]);
+    std::vector<node> mainChain = fordJohnsonSortVector(winners);
+    if (pending.empty())
+        return mainChain;
 
-    // if (pending.empty()) return sortedWinners;
-
-    std::vector<node> mainChain = sortedWinners;
-    mainChain.insert(mainChain.begin(), pending[0]);
-    
-    std::vector<int> order = generateJacobsthal(pending.size());
+    std::vector<bool> inserted(pending.size(), false);
+    std::vector<int> order = generateJacobsthal(static_cast<int>(pending.size()));
     for (size_t i = 0; i < order.size(); ++i)
     {
-        int index = order[i] - 1;   
-        if (index <= 0 || index >= (int)pending.size())
+        int index = order[i] - 1;
+        if (index < 0 || index >= static_cast<int>(pending.size()) || inserted[index])
             continue;
         binaryInsertionVector(mainChain, pending[index]);
+        inserted[index] = true;
     }
+
+    for (size_t i = 0; i < pending.size(); ++i)
+    {
+        if (!inserted[i])
+            binaryInsertionVector(mainChain, pending[i]);
+    }
+
     return mainChain;
 }
 
@@ -164,9 +197,9 @@ std::vector<int> PmergeMe::generateJacobsthal(int n)
         return order;
 
     std::vector<int> jacob;
-    jacob.push_back(1); // J(1)
-    jacob.push_back(3); // J(2)
-    while(jacob.back() < (int)n)
+    jacob.push_back(1);
+    jacob.push_back(3);
+    while (jacob.back() < n)
     {
         jacob.push_back(jacob[jacob.size() - 1] + 2 * jacob[jacob.size() - 2]);
     }
@@ -175,91 +208,71 @@ std::vector<int> PmergeMe::generateJacobsthal(int n)
     for (size_t i = 0; i < jacob.size(); ++i)
     {
         int current = jacob[i];
-        if (current > (int)n)
+        if (current > n)
             current = n;
         for (int k = current; k > last; --k)
             order.push_back(k);
         last = current;
     }
+
     if (order.empty() || order[0] != 1)
         order.insert(order.begin(), 1);
     return order;
 }
 
-std::deque<node> PmergeMe::fordJohnsonSortDeque(std::deque<node> &data)
-{
-    if (data.size() <= 1) return data;
-
-    std::deque<node> currentData = data;
-    size_t n = currentData.size();
-
-    bool hasstraggler = (n % 2 != 0);
-    node straggler;
-    if (hasstraggler) {
-        straggler = currentData.back();
-        currentData.pop_back();
-    }
-    
-    std::deque<node> winners;
-    compareNodesDeque(currentData, winners); 
-    
-    std::deque<node> sortedWinners = fordJohnsonSortDeque(winners);
-    
-    std::deque<node> pending;
-    for (size_t i = 0; i < sortedWinners.size(); ++i) 
-    {
-        if (!sortedWinners[i].loser.empty()) 
-        {
-            node p;
-            p.value = sortedWinners[i].loser.back();
-            // sortedWinners[i].loser.pop_back();
-            p.loser.clear();
-            pending.push_back(p);
-        }
-    }
-    if (hasstraggler)
-        pending.push_back(straggler);
-
-    // if (!pending.empty())
-    //     mainChain.insert(mainChain.begin(), pending[0]);
-    // if (pending.empty()) return sortedWinners;
-
-    std::deque<node> mainChain = sortedWinners;
-    mainChain.insert(mainChain.begin(), pending[0]);
-    
-    std::vector<int> order = generateJacobsthal(pending.size());
-    for (size_t i = 0; i < order.size(); ++i) {
-        int index = order[i] - 1;   
-        if (index <= 0 || index >= (int)pending.size())
-            continue;
-        binaryInsertionDeque(mainChain, pending[index]);
-    }
-    return mainChain;
-}
-
-
 void PmergeMe::compareNodesDeque(std::deque<node> &data, std::deque<node> &winners)
 {
     for (size_t i = 0; i + 1 < data.size(); i += 2)
     {
+        node winner;
         if (data[i].value > data[i + 1].value)
         {
-            winners.push_back(data[i]);
-            winners.back().loser.push_back(data[i + 1].value);
+            winner.value = data[i].value;
+            winner.loserValue = data[i + 1].value;
+            winner.hasLoser = true;
         }
-        else 
+        else
         {
-            winners.push_back(data[i + 1]);
-            winners.back().loser.push_back(data[i].value);
+            winner.value = data[i + 1].value;
+            winner.loserValue = data[i].value;
+            winner.hasLoser = true;
         }
+        winners.push_back(winner);
     }
 }
 
-void PmergeMe::binaryInsertionDeque(std::deque<node> &dest, node &toInsert) 
+void PmergeMe::collectDequePending(std::deque<node> &data, const std::deque<node> &winners,
+                                   std::deque<node> &pending)
+{
+    for (size_t i = 0; i < winners.size(); ++i)
+    {
+        if (winners[i].hasLoser)
+        {
+            node p;
+            p.value = winners[i].loserValue;
+            p.loserValue = 0;
+            p.hasLoser = false;
+            pending.push_back(p);
+        }
+    }
+
+    if (data.size() % 2 != 0)
+    {
+        node p;
+        p.value = data.back().value;
+        p.loserValue = 0;
+        p.hasLoser = false;
+        pending.push_back(p);
+    }
+}
+
+void PmergeMe::binaryInsertionDeque(std::deque<node> &dest, const node &toInsert)
 {
     int low = 0;
-    int high = dest.size() - 1;
-    while (low <= high) {
+    int high = static_cast<int>(dest.size()) - 1;
+
+    while (low <= high)
+    {
         int mid = low + (high - low) / 2;
         if (dest[mid].value < toInsert.value)
             low = mid + 1;
@@ -269,50 +282,114 @@ void PmergeMe::binaryInsertionDeque(std::deque<node> &dest, node &toInsert)
     dest.insert(dest.begin() + low, toInsert);
 }
 
-
-void PmergeMe::runVectorSort() 
+std::deque<node> PmergeMe::fordJohnsonSortDeque(std::deque<node> &data)
 {
-    struct timeval start, end;
-    gettimeofday(&start, NULL);
+    if (data.size() <= 1)
+        return data;
 
-    this->vectorResult = fordJohnsonSortVector(this->vectorData);
+    std::deque<node> winners;
+    std::deque<node> pending;
 
-    gettimeofday(&end, NULL);
-    // 1sec = 1000000us
-    this->vectorTime = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
+    for (size_t i = 0; i + 1 < data.size(); i += 2)
+    {
+        node big;
+        node small;
+
+        if (data[i].value > data[i + 1].value)
+        {
+            big = data[i];
+            small = data[i + 1];
+        }
+        else
+        {
+            big = data[i + 1];
+            small = data[i];
+        }
+
+        big.hasLoser = true;
+        big.loserValue = small.value;
+        winners.push_back(big);
+
+        small.hasLoser = false;
+        small.loserValue = 0;
+        pending.push_back(small);
+    }
+
+    if (data.size() % 2 != 0)
+    {
+        node straggler = data.back();
+        straggler.hasLoser = false;
+        straggler.loserValue = 0;
+        pending.push_back(straggler);
+    }
+
+    std::deque<node> mainChain = fordJohnsonSortDeque(winners);
+    if (pending.empty())
+        return mainChain;
+
+    std::vector<bool> inserted(pending.size(), false);
+    std::vector<int> order = generateJacobsthal(static_cast<int>(pending.size()));
+    for (size_t i = 0; i < order.size(); ++i)
+    {
+        int index = order[i] - 1;
+        if (index < 0 || index >= static_cast<int>(pending.size()) || inserted[index])
+            continue;
+        binaryInsertionDeque(mainChain, pending[index]);
+        inserted[index] = true;
+    }
+
+    for (size_t i = 0; i < pending.size(); ++i)
+    {
+        if (!inserted[i])
+            binaryInsertionDeque(mainChain, pending[i]);
+    }
+
+    return mainChain;
 }
 
-void PmergeMe::runDequeSort() 
+void PmergeMe::runVectorSort()
 {
-    struct timeval start, end;
+    struct timeval start;
+    struct timeval end;
+
     gettimeofday(&start, NULL);
-
-    this->dequeResult = fordJohnsonSortDeque(this->dequeData);
-
+    vectorResult = fordJohnsonSortVector(vectorData);
     gettimeofday(&end, NULL);
-    this->dequeTime = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
+
+    vectorTime = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
 }
 
-//calculate the time for vector and deque, and print the results
-void PmergeMe::printResults() const 
+void PmergeMe::runDequeSort()
 {
+    struct timeval start;
+    struct timeval end;
+
+    gettimeofday(&start, NULL);
+    dequeResult = fordJohnsonSortDeque(dequeData);
+    gettimeofday(&end, NULL);
+
+    dequeTime = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
+}
+
+void PmergeMe::printResults() const
+{
+     if(vectorData.size() == 0){
+        return;
+    }
     std::cout << "Before: ";
-    for (size_t i = 0; i < vectorData.size(); ++i) {
-        std::cout << vectorData[i].value << (i == vectorData.size() - 1 ? "" : " ");
+    for(std::vector<node>::const_iterator it = vectorData.begin(); it != vectorData.end(); ++it){
+        std::cout << it->value << " ";
     }
     std::cout << std::endl;
 
-    std::cout << "After:  ";
-    for (size_t i = 0; i < dequeResult.size(); ++i) {
-        std::cout << dequeResult[i].value << (i == dequeResult.size() - 1 ? "" : " ");
+    std::cout << "After: ";
+    for(std::vector<node>::const_iterator it = vectorResult.begin(); it != vectorResult.end(); ++it){
+        std::cout << it->value << " ";
     }
     std::cout << std::endl;
 
-    std::cout << "Time to process a range of " << vectorData.size() 
-              << " elements with std::vector : " << std::fixed << std::setprecision(5) 
-              << this->vectorTime << " us" << std::endl;
-
-    std::cout << "Time to process a range of " << dequeData.size() 
-              << " elements with std::deque  : " << std::fixed << std::setprecision(5) 
-              << this->dequeTime << " us" << std::endl;
+    std::cout << "Time to process a range of " << vectorData.size() << " elements with std::vector : " 
+        << std::fixed << std::setprecision(5) << vectorTime << " us" << std::endl;
+    std::cout << "Time to process a range of " << dequeData.size() << " elements with std::deque : "
+        << std::fixed << std::setprecision(5) << dequeTime << " us" << std::endl;
 }

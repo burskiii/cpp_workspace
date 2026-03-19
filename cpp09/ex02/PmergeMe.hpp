@@ -9,10 +9,12 @@
 #include <sys/time.h>
 #include <sstream>
 #include <iomanip>
+#include <cstdlib>
 
 struct node {
     int value;
-    std::vector<int> loser;
+    int loserValue;
+    bool hasLoser;
 };
 
 class PmergeMe {
@@ -24,18 +26,21 @@ class PmergeMe {
 
         void checkAndReadInput(int ac, char **av);
         
-        // Vector 
+        // Vector
         std::vector<node> fordJohnsonSortVector(std::vector<node> &data);
         std::vector<int> generateJacobsthal(int n);
-        void compareNodes(std::vector<node> &data, std::vector<node> &winners);
-        void binaryInsertionVector(std::vector<node> &dest, node &toInsert);
+        void compareVecNodes(std::vector<node> &data, std::vector<node> &winners);
+        void collectVecPending(std::vector<node> &data, const std::vector<node> &winners,
+                       std::vector<node> &pending);
+        void binaryInsertionVector(std::vector<node> &dest, const node &toInsert);
         void runVectorSort();
         
-        //deque
+        // Deque
         std::deque<node> fordJohnsonSortDeque(std::deque<node> &data);
-        // std::deque<int> generateJacobsthalOrderDeque(size_t n);
         void compareNodesDeque(std::deque<node> &data, std::deque<node> &winners);
-        void binaryInsertionDeque(std::deque<node> &dest, node &toInsert);
+        void collectDequePending(std::deque<node> &data, const std::deque<node> &winners,
+                     std::deque<node> &pending);
+        void binaryInsertionDeque(std::deque<node> &dest, const node &toInsert);
         void runDequeSort();
 
         void printResults() const;
